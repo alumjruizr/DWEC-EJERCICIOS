@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hola mundo con AJAX mejorado</title>
+  <script>
+    let READY_STATE_COMPLETE = 4;
+    let HTTP_STATUS_OK = 200;
+
+    let peticion_http;
+
+    window.onload = inicio;
+
+    function carga_contenido() {
+      if (window.XMLHttpRequest) {
+        peticion_http = new XMLHttpRequest();   
+      } else {
+        alert("No tienes soporte para AJAX");
+        return;  // Salimos y no hacemos la petición
+      }
+
+      // Preparamos la petición
+      if (peticion_http) {
+        const URL = "http://localhost:8090/U7/U7_T1/01_AJAX-HolaMundoMejorado.html"
+        // en la petición, me suscribo al evento "ReadyStateChange", y le 
+        // digo que me llame a muestra_contenido cada vez que suceda (que cambie el estado)
+        peticion_http.onreadystatechange = muestra_contenido;
+        peticion_http.open("GET", URL, true);
+        peticion_http.send();
+      }
+    }
+
+    function inicio() {
+      //1. Cargar la url en el input text
+      //2. Suscribir al botón la función a la que llamaré cuando clique
+    }
+
+    function boton() {
+      //1. Copiar la dirección del input text
+      //2. Volcar la información de la url en el textarea
+    }
+
+    function muestra_contenido() {
+      if (peticion_http.readyState === READY_STATE_COMPLETE) {
+        if (peticion_http.status === HTTP_STATUS_OK) {
+
+          alert(peticion_http.responseText);
+        }
+      }
+    }
+
+
+  </script>
+</head>
+
+<body>
+    <br>
+      <textarea id="textAreaURL" name="textAreaURL" rows="1" cols="50"></textarea></br>
+      <button id="button" name="button">Mostrar contenido</button></br>
+      <textarea id="textAreaContenido" name="textAreaContenido" rows="20" cols="50"></textarea>
+    </div>
+</body>
+
+</html>
