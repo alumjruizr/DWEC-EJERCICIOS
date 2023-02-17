@@ -1,7 +1,6 @@
 let xhr;
-const READY_COMPLETE_STATE = 4;
 
-let peticiones = [];
+let rangoPersonajesCargar = [];
 
 window.onload = () => {
     document
@@ -17,36 +16,24 @@ function cargar_datos_xml() {
 
 	if (XMLHttpRequest) {
 		xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = comprobar;
-		xhr.open("GET", "latest.json");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				procesar_xml(xhr.responseXML);
+			}
+		};
+		rangoPersonajesCargar.forEach(element => {
+			xhr.open("GET", "https://rickandmortyapi.com/api/character/" + element);
+			
+		});
 		xhr.send();
 	}
 }
 
-function comprobar() {
-	console.log("comprobar");
-	if (xhr.readyState === READY_STATE_COMPLETE && xhr.status === 200) {
-		resultados.innerHTML = "Datos desde XML cargados";
-		console.log("comprobar ok");
-		console.log(JSON.parse(xhr.responseText));
-		let characters = JSON.parse(xhr.responseText);
+function calcularRangoPersonajes() {
+	let numeroMin = document.getElementById("min");
+	let numeroMax = document.getElementById("max");
 
-		// Lo hemos hecho de las dos maneras posibles. En el ejercicio no haría falta. Sólo una sería suficiente
-		// insertar_comunidades_fetch(comunidades_json);
-		insertar_comunidades_xmlhttprq(filtrar_campos(characters));
+	for (let num = numeroMin; index < numeroMax; index++) {
+		rangoPersonajesCargar.push(num);
 	}
 }
-
-function cargar_datos_fetch() {
-	console.log("cargaFecth");
-	fetch("latest.json")
-		.then((response) => {
-			if (response.ok) return response.json();
-		})
-		.then((characters) => {
-			resultados.innerHTML = "Datos desde fetch cargados";
-			console.log(characters);
-			insertar_comunidades_xmlhttprq(filtrar_campos(characters));
-		});
-}
-
