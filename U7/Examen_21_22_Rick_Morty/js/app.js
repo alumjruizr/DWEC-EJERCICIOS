@@ -1,4 +1,4 @@
-let xhr
+let xhr;
 const READY_COMPLETE_STATE = 4;
 
 let peticiones = [];
@@ -23,16 +23,30 @@ function cargar_datos_xml() {
 	}
 }
 
+function comprobar() {
+	console.log("comprobar");
+	if (xhr.readyState === READY_STATE_COMPLETE && xhr.status === 200) {
+		resultados.innerHTML = "Datos desde XML cargados";
+		console.log("comprobar ok");
+		console.log(JSON.parse(xhr.responseText));
+		let characters = JSON.parse(xhr.responseText);
+
+		// Lo hemos hecho de las dos maneras posibles. En el ejercicio no haría falta. Sólo una sería suficiente
+		// insertar_comunidades_fetch(comunidades_json);
+		insertar_comunidades_xmlhttprq(filtrar_campos(characters));
+	}
+}
+
 function cargar_datos_fetch() {
 	console.log("cargaFecth");
 	fetch("latest.json")
 		.then((response) => {
 			if (response.ok) return response.json();
 		})
-		.then((comunidades) => {
+		.then((characters) => {
 			resultados.innerHTML = "Datos desde fetch cargados";
-			console.log(comunidades);
-			insertar_comunidades_xmlhttprq(filtrar_campos(comunidades));
+			console.log(characters);
+			insertar_comunidades_xmlhttprq(filtrar_campos(characters));
 		});
 }
 
