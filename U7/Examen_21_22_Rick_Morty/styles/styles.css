@@ -2,7 +2,7 @@
     width: 3%;
 }
 
-#contenedorBotonesPrincipal {
+div {
     border-bottom: 1pt solid black ;
     padding-bottom: 1%;
 }

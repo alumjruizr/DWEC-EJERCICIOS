@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <scriptdefer src="js/app.js"></scriptdefer>
+    <script defer src="js/app.js"></script>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -15,10 +15,19 @@
     <input type="number" name="min" id="min" class="selectorNum">
     <label for="max">Max.</label>
     <input type="number" name="max" id="max" class="selectorNum">
-    <input type="button" value="Obtener personajes XML" id="cargaXML">
-    <input type="button" value="Obtener personajes Fetch" id="cargaFetch">
+    <input type="button" value="Obtener personajes XML" id="xmlButton">
+    <input type="button" value="Obtener personajes Fetch" id="fetchButton">
 </div>
-
+<div>
+    <select id="select"></select>
+    <input
+      type="button"
+      id="saveButton"
+      value="Obtener y guardar episodios"
+    />
+  </div>
+  <div id="resultado"></div>
+  <div id="personajes"></div>
 
     
 </body>
