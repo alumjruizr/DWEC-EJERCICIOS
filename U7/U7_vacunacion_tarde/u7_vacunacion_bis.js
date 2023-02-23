@@ -138,7 +138,7 @@ function filtrar_campos(comunidades) {
 function insertar_comunidades_fetch(comunidades) {
 	console.log("insertar_comunidades_fetch");
 	// Lo hacemos primero con Fetch, luego con XMLHttpRequest. No haría falta según el enunciado, solamente con uno de ellos.
-	fetch("insertar_comunidades.php", {
+	fetch("insertar_comunidades.php", {	
 		method: "POST",
 		headers: {
 			"Content-type": "application/json",
