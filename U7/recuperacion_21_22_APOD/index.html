@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación 21/22 APOD</title>
+    <style>
+        div {
+            border-bottom: 1pt solid black;
+            padding-bottom: 3pt;
+            padding-top: 1pt;
+        }
+
+        img {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+    <script defer src="app.js"></script>
+</head>
+<body>
+
+    <div id="botones">
+        <input type="number" id="cantidadFotos">
+        <button id="cargaXML">Cargar APOD XML</button>
+        <button id="cargaFetch">Cargar APOD fetch</button>
+    </div>
+    <div id="mensajes"></div>
+    <div id="select">
+        <select name="selectAPOD" id="selectApod"></select>
+    </div>
+    <div id="resultados"></div>
+    
+</body>
+</html>

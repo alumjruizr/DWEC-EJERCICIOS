@@ -27,7 +27,7 @@ function cargaCriminales() {
     if (XMLHttpRequest) {
         xhr = new XMLHttpRequest();
         xhr.onreadystatechange = comprobar;
-        xhr.open("GET", "https://api.fbi.gov/@wanted");
+        xhr.open("GET", "https://cors-anywhere.herokuapp.com/https://api.fbi.gov/@wanted");
         xhr.send();
     }
 }
@@ -98,8 +98,8 @@ function generarTabla(criminales) {
         let td = document.createElement("td");
         let button = document.createElement("button");
         td.appendChild(button);
-        button.setAttribute("class", "guardarCriminal");
-        button.appendChild(document.createTextNode("Guardar"))
+        button.setAttribute("onclick", "guardarCriminal()");
+        button.appendChild(document.createTextNode("Guardar"));
         tr.appendChild(td);
 
         tabla.appendChild(tr);
@@ -114,7 +114,11 @@ function limpiarTabla() {
     divTabla.innerHTML = "";
 }
 
-function guardarCriminal(criminal) {
+function guardarCriminal() {
+
+    let criminalToSave = 
+
+
     fetch("save_criminals.php", {
         method: "POST",
         headers: {
@@ -132,4 +136,14 @@ function guardarCriminal(criminal) {
 
     })
     .catch((err) => console.log(err));
+
+
+
+    let nodosGuardado = document.getElementsByClassName("guardarCriminal");
+    nodosGuardado.forEach((nodo) => {
+        if (nodo){
+
+        }
+    });
+
 }

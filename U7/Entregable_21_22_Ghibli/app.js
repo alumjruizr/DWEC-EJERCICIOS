@@ -1,6 +1,3 @@
-//TODO: Botón carga vehículos que recupere los vehículos, muestre una tabla y los inserte en BBDD.
-//TODO: 
-
 let xhr;
 const READY_STATE_COMPLETE = 4;
 let mensajes;
