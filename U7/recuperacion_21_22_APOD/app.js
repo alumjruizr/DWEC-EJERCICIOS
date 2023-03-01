@@ -4,12 +4,19 @@ let arrayFotosApod = [];
 window.onload = () => {
     document
         .getElementById("cargaXML")
-        .addEventListener("click", pedirFotos);
+        .addEventListener("click", cargarFotosXML);
     
+    document
+        .getElementById("selectApod").onclick = generarLista;
+        //.addEventListener("click", generarLista);
+
+    document
+        .getElementById("cargaFetch")
+        .addEventListener("click", cargarFotosFetch);
 
 }
 
-function pedirFotos() {
+function cargarFotosXML() {
     let numeroFotos =  document.getElementById("cantidadFotos").value;
     if (XMLHttpRequest) {
         xhr = new XMLHttpRequest();
@@ -19,14 +26,32 @@ function pedirFotos() {
     }
 }
 
+function cargarFotosFetch() {
+    let numeroFotos =  document.getElementById("cantidadFotos").value;
+    fetch (`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=${numeroFotos}`)
+    .then((respuesta) => {
+        if (respuesta.ok) {
+            return respuesta.json();
+        }
+    })
+    .then((datos) => {
+        let fotosJson = [];
+        mensajes.innerHTML += `${document.getElementById("cantidadFotos").value} Fotos cargadas desde APOD </br>`;
+        fotosJson = filtrarCampos(datos);
+        rellenarSelect(fotosJson);
+        console.log(fotosJson);
+        return datos;
+    });
+
+}
+
 function comprobar() {
     let fotosJson = [];
     if (xhr.readyState === 4 && xhr.status === 200) {
         let jsonContent = JSON.parse(xhr.responseText);
         mensajes.innerHTML += `${document.getElementById("cantidadFotos").value} Fotos cargadas desde APOD </br>`;
         fotosJson = filtrarCampos(jsonContent);
-        generarLista(fotosJson);
-        rellenarSelect()
+        rellenarSelect(fotosJson);
         console.log(fotosJson);
     }
 }
@@ -48,13 +73,17 @@ function filtrarCampos(fotos) {
     return arrayFotosApod;
 }
 
-function generarLista(fotosJson){
+function generarLista(){
+    let fotosJson = arrayFotosApod;
     let resultados = document.getElementById("resultados");
+    let selectOption = document.getElementById("selectApod");
+    let valueOption = selectOption.value;
 
     resultados.innerHTML = "";
+    
+    for (const foto of fotosJson) {
 
-    for (let i = 0; i < fotosJson.length; i++) {
-
+    if (valueOption === foto.title){
         let div = document.createElement("div");
         resultados.appendChild(div);
 
@@ -77,10 +106,23 @@ function generarLista(fotosJson){
         //let button = createElement("button");
         //div.appendChild(created);
     }
+
+    }
+    
 }
 
-function rellenarSelect() {
-
+function rellenarSelect(fotosJson) {
+    let selectNuevo;
+    let selectApod = document.getElementById("selectApod");
+    selectApod.innerHTML = "";
+    fotosJson.forEach((foto) => {
+        selectNuevo = document.createElement("option");
+        selectApod.appendChild(selectNuevo);
+        selectNuevo.setAttribute("value", foto.title);
+        //selectNuevo.setAttribute("onclick", generarLista)
+        let text = document.createTextNode(foto.title);
+        selectNuevo.appendChild(text);
+    }); 
 }
 
 function setAtt(e, att, value) {
